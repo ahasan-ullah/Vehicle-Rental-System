@@ -8,7 +8,7 @@ const auth=(...roles:string[])=>{
       const token=req.headers.authorization;
 
       if(!token){
-        return res.status(500).json({
+        return res.status(403).json({
           message: "unathorized access (not logged in)"
         })
       }
@@ -17,7 +17,7 @@ const auth=(...roles:string[])=>{
       req.user=decoded;
 
       if(roles.length && !roles.includes(decoded.user.role)){
-        return res.status(500).json({
+        return res.status(403).json({
           error: "unathorized access"
         })
       }
