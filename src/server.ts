@@ -3,6 +3,7 @@ import config from './config'
 import initDB from './database/db';
 import logger from './middleware/logger';
 import { authRoutes } from './modules/auth/auth.routes';
+import { userRoutes } from './modules/user/user.routes';
 
 
 
@@ -23,6 +24,9 @@ app.get('/', logger, (req:Request, res:Response) => {
 
 //authentication
 app.use('/api/v1/auth',authRoutes);
+
+//user routes
+app.use('/api/v1/users',userRoutes);
 
 
 

@@ -15,7 +15,7 @@ const createUser=async(req:Request,res:Response)=>{
     res.status(500).json({
       success: false,
       message: "User registration failed",
-      data: []
+      error: error.message
     })
   }
 }
