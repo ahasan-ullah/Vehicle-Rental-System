@@ -1,6 +1,16 @@
 import express, { Request, Response } from 'express'
+import config from './config'
+import initDB from './database/db';
+
+
+
 const app = express()
-const port = 5000
+const port = config.port;
+
+//parser
+app.use(express.json());
+
+initDB();
 
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
