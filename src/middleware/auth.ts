@@ -16,9 +16,6 @@ const auth=(...roles:string[])=>{
       const decoded=jwt.verify(token.split(" ")[1] as string,config.secret_key as string) as JwtPayload;
       req.user=decoded;
 
-      console.log(decoded)
-
-
       if(roles.length && !roles.includes(decoded.user.role)){
         return res.status(500).json({
           error: "unathorized access"
