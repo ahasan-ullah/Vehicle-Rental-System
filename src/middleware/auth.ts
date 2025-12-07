@@ -1,16 +1,28 @@
 import { NextFunction, Request, Response } from "express"
+import jwt, { JwtPayload } from "jsonwebtoken";
+import config from "../config";
 
 const auth=()=>{
-  return (req:Request,res:Response,next:NextFunction)=>{
-    const token=req.headers.authorization;
+  return async (req:Request,res:Response,next:NextFunction)=>{
+    try {
+      const token=req.headers.authorization;
 
-    if(!token){
-      return res.status(500).json({
-        message: "unathorized access"
+      if(!token){
+        return res.status(500).json({
+          message: "unathorized access"
+        })
+      }
+
+      const decoded=jwt.verify(token,config.secret_key as string);
+      req.user=decoded as JwtPayload;
+
+      next();
+    } catch (error:any) {
+      res.status(500).json({
+        success: false,
+        error: error.message
       })
     }
-
-    next();
   };
 }
 

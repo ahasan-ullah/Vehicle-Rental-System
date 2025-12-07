@@ -40,12 +40,12 @@ const loginUser=async(loginData:Login)=>{
     }
 
   const token = jwt.sign(
-    retrievedUser,
+    {user: retrievedUser},
     config.secret_key as string,
     { expiresIn: "7d" }
   );
 
-  return {token,retrievedUser};
+  return {token,user:retrievedUser};
 }
 
 export const authServices={
